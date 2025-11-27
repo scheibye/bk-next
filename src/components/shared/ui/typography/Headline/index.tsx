@@ -1,25 +1,22 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-
 import { Text, VariantMap } from "@/src/components/shared/ui/typography/Text";
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 export const headlineVariantMap = {
   // H1 - 44px
-  h1: "text-[44px] font-semibold leading-[120%] tracking-[-0.01em] font-jakarta",
-  mobileH1: "text-[26px] font-semibold leading-[120%] tracking-[-0.01em] font-jakarta",
+  h1: "text-[44px] font-semibold leading-[120%] tracking-[-0.01em]",
+  mobileH1: "text-[26px] font-semibold leading-[120%] tracking-[-0.01em]",
 
   // H2 - 32px
-  h2: "text-[34px] font-semibold leading-[120%] tracking-[-0.01em] font-jakarta",
-  mobileH2: "text-[22px] font-semibold leading-[120%] tracking-[-0.01em] font-jakarta",
+  h2: "text-[34px] font-semibold leading-[120%] tracking-[-0.01em]",
+  mobileH2: "text-[22px] font-semibold leading-[120%] tracking-[-0.01em]",
 
   // H3 - 22px
-  h3: "text-[22px] font-medium leading-[120%] tracking-[-0.01em] font-jakarta",
-  mobileH3: "text-[20px] font-medium leading-[120%] font-jakarta",
+  h3: "text-[22px] font-medium leading-[120%] tracking-[-0.01em]",
+  mobileH3: "text-[20px] font-medium leading-[120%]",
 
   // H4 - 20px
-  h4: "text-xl font-medium leading-[120%] tracking-[-0.01em] font-jakarta",
-  mobileH4: "text-base font-medium leading-[120%] font-jakarta",
+  h4: "text-xl font-medium leading-[120%] tracking-[-0.01em]",
+  mobileH4: "text-base font-medium leading-[120%]",
 } as const satisfies VariantMap;
 
 type HeadlineVariant = keyof typeof headlineVariantMap;

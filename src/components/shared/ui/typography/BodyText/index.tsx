@@ -1,18 +1,20 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-import { ComponentPropsWithoutRef, ElementType, ReactElement, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import { Text, VariantMap } from "@/src/components/shared/ui/typography/Text";
 
 export const BodyTextVariantMap = {
-  "16": "text-base font-normal leading-[160%] font-jakarta",
-  "14": "text-sm font-normal leading-[160%] font-jakarta",
+  "18sb": "text-lg font-semibold leading-[160%]",
+
+  "16": "text-base font-normal leading-[160%]",
+
+  "14": "text-sm font-normal leading-[160%]",
+  "14sb": "text-sm font-semibold leading-[160%]",
 } as const satisfies VariantMap;
 
 export type BodyTextVariant = keyof typeof BodyTextVariantMap;
 
 export interface BodyTextProps<T extends ElementType = "p"> {
-  as?: T | ReactElement;
+  as?: T;
   variant?: BodyTextVariant;
   children?: ReactNode;
   className?: string;

@@ -22,7 +22,7 @@ export function Text<T extends ElementType = "p", VMap extends VariantMap = Vari
   className = "",
   ...props
 }: TextProps<T, VMap>) {
-  const COMPONENT = as || "p";
+  const Component = as || "p";
   const effectiveVariant = variant || defaultVariant;
   const defaultClasses = variantMap[defaultVariant] || "";
   const variantClasses = variantMap[effectiveVariant as keyof VMap] || defaultClasses;
@@ -30,15 +30,20 @@ export function Text<T extends ElementType = "p", VMap extends VariantMap = Vari
 
   if (variant && !(variant in variantMap) && variant !== defaultVariant) {
     console.error(
-      `[Text Component] Variant "${String(variant)}" not found. Applying default "${String(defaultVariant)}".`
+      `[Text Component] Variant "${String(variant)}" not found. Applying default "${String(
+        defaultVariant
+      )}".`
     );
   }
 
   const combinedClassName = `${variantClasses} ${colorClasses} ${className}`.trim();
 
   return (
-    <COMPONENT className={combinedClassName} {...props}>
+    <Component
+      className={combinedClassName}
+      {...props}
+    >
       {children}
-    </COMPONENT>
+    </Component>
   );
 }

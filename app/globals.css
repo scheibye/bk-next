@@ -2,10 +2,13 @@
 
 :root {
   --background: #DDDDDD;
-  --foreground: #000000;
+  --secondary-background: #FFFFFF;
+  --foreground: #F8F8F8;
+  --secondary-foreground: #000000;
 
   --brand-primary: #023C2D;
   --brand-secondary: #E2BA7B;
+  --brand-secondary-100: #EDE0CA;
 
   --gray-100: #F8F8F8;
   --gray-200: #EEEEEE;
@@ -17,15 +20,22 @@
 
   --secondary-green: #2A7E67;
   --secondary-orange: #CF5C36;
-  --secondary-orange: #816C4B;
+  --secondary-orange-100: #816C4B;
+
+  --error-100: #FB2C36;
+
+  --border: #D2D5DA;
 }
 
 @theme inline {
   /* colors */
   --color-background: var(--background);
+  --color-secondary-background: var(--secondary-background);
   --color-foreground: var(--foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-brand-primary: var(--brand-primary);
   --color-brand-secondary: var(--brand-secondary);
+  --color-brand-secondary-100: var(--brand-secondary-100);
   --color-gray-100: var(--gray-100);
   --color-gray-200: var(--gray-200);
   --color-gray-300: var(--gray-300);
@@ -35,19 +45,25 @@
   --color-gray-900: var(--gray-900);
   --color-secondary-green: var(--secondary-green);
   --color-secondary-orange: var(--secondary-orange);
+  --color-secondary-orange-100: var(--secondary-orange-100);
+  --color-error-100: var(--error-100);
+  --color-border: var(--border);
 
   /* fonts */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-jakarta-sans: var(--font-jakarta);
+  --font-inter: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #DDDDDD;
-    --foreground: #000000;
+    --secondary-background: #FFFFFF;
+    --foreground: #F8F8F8;
+    --secondary-foreground: #000000;
 
     --brand-primary: #023C2D;
     --brand-secondary: #E2BA7B;
+    --brand-secondary-100: #EDE0CA;
 
     --gray-100: #F8F8F8;
     --gray-200: #EEEEEE;
@@ -59,12 +75,27 @@
 
     --secondary-green: #2A7E67;
     --secondary-orange: #CF5C36;
-    --secondary-orange: #816C4B;
+    --secondary-orange-100: #816C4B;
+
+    --error-100: #FB2C36;
+
+    --border: #D2D5DA;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), sans-serif;
+}
+
+/* customize input autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px var(--secondary-background) inset;
+  -webkit-text-fill-color: var(--gray-900);
+  caret-color: var(--gray-900);
+  transition: background-color 5000s ease-in-out 0s;
 }

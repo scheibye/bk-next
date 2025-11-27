@@ -32,6 +32,7 @@ export function ContactUsForm() {
   return (
     <div className="lg:min-w-[450px] bg-secondary-background py-12.5 px-10 w-fit rounded-xl flex flex-col gap-10">
       <Headline
+        as="h3"
         variant="h3"
         className="text-secondary-foreground!"
       >
@@ -42,6 +43,7 @@ export function ContactUsForm() {
         <div className="mb-10 space-y-6">
           <InputField
             label="Fulde navn"
+            placeholder="Fornavn Efternavn"
             isRequired
             {...register("fullName")}
             error={errors.fullName}
@@ -69,7 +71,6 @@ export function ContactUsForm() {
           disabled={isSubmitting}
           className="flex items-center justify-between"
         >
-
           {/* empty div for spacing */}
           <div className="size-5 shrink-0" />
 

@@ -10,7 +10,7 @@ export function HowItWorksSection() {
   return (
     <Container
       as="section"
-      className="my-5 mx-5 py-8 md:py-18 bg-secondary-background rounded-xl"
+      className="my-5 mx-5 pt-7.5 pb-5 md:py-18 bg-secondary-background rounded-xl"
     >
       <Container
         variant="inner"

@@ -4,6 +4,7 @@ import { BodyText } from "@/src/components/shared/ui/typography/BodyText";
 import { cn } from "@/src/lib/cn";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const steps = [
@@ -74,10 +75,19 @@ export function AnimatedStepper() {
                   }}
                   transition={{ duration: 0.5 }}
                 >
-                  <Check
-                    className={cn("size-5", isActive ? "text-foreground" : "text-secondary-green")}
-                    strokeWidth={2.5}
-                  />
+                  {isActive ? (
+                    <Check
+                      className="size-5 text-foreground"
+                      strokeWidth={2.5}
+                    />
+                  ) : (
+                    <Image
+                      src="/finish-icon.svg"
+                      width={18}
+                      height={18}
+                      alt="finish icon"
+                    />
+                  )}
                 </motion.div>
               ) : (
                 <motion.div

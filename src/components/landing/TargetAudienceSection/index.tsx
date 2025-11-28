@@ -11,7 +11,7 @@ export function TargetAudienceSection() {
     >
       <Container
         variant="inner"
-        className="flex flex-col justify-center items-center gap-12"
+        className="flex flex-col justify-center items-center gap-10 md:gap-12"
       >
         <Headline
           as="h2"
@@ -21,7 +21,7 @@ export function TargetAudienceSection() {
           Hvem henvender vi os til?
         </Headline>
 
-        <div className="w-full grid grid-cols-3 gap-5">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {TARGET_AUDIENCE.map((item, index) => (
             <TargetAudienceCard
               key={index}

@@ -19,10 +19,10 @@ export function TargetAudienceCard({
         width={340}
         height={220}
         draggable={false}
-        className="h-[220px] rounded-lg"
+        className="w-full h-[220px] rounded-lg object-cover"
       />
 
-      <div className="mt-7 flex-1 flex flex-col justify-between gap-12">
+      <div className="mt-5 md:mt-7 flex-1 flex flex-col justify-between gap-6 md:gap-12">
         <div className="space-y-4">
           <Headline
             as="h3"
@@ -34,7 +34,7 @@ export function TargetAudienceCard({
           <BodyText className="text-gray-600!">{description}</BodyText>
         </div>
 
-        <button className="flex items-center gap-2">
+        <button className="flex items-center justify-center md:justify-start gap-2">
           <BodyText
             variant="20Medium"
             className="text-brand-primary!"

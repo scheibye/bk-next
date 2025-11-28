@@ -6,10 +6,7 @@ interface Props {
 }
 
 export function BudjetFormatter({ value, currency = "DKK" }: Props) {
-  const valueToDisplay = value.toLocaleString("da-DK", {
-    style: "currency",
-    currency,
-  });
+  const valueToDisplay = value;
 
   return (
     <Headline
@@ -17,7 +14,7 @@ export function BudjetFormatter({ value, currency = "DKK" }: Props) {
       variant="h4"
       className="text-secondary-foreground!"
     >
-      {valueToDisplay}
+      {currency} {valueToDisplay}
     </Headline>
   );
 }

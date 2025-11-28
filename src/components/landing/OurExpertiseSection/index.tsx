@@ -11,10 +11,16 @@ export function OurExpertiseSection() {
       as="section"
       className="relative bg-brand-primary md:rounded-xl overflow-hidden"
     >
-      {/* <div
-        className="absolute top-0 right-0 h-full w-[40%] bg-cover bg-right"
-        style={{ backgroundImage: "url('/hero-section-bg.webp')" }}
-      /> */}
+      {/* desktop pattern bg */}
+      <div
+        className="absolute top-0 bottom-0 right-0 h-full w-1/3 bg-cover bg-repeat bg-right"
+        style={{ backgroundImage: "url('/pattern-bg/our-expertise.png')" }}
+      />
+      {/* mobile pattern bg */}
+      <div
+        className="absolute inset-y-0 right-0 w-[80%] bg-contain bg-no-repeat bg-top-right md:hidden"
+        style={{ backgroundImage: "url('/pattern-bg/our-expertise-mobile.webp')" }}
+      />
 
       <Container
         variant="inner"

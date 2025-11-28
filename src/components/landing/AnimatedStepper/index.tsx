@@ -2,7 +2,9 @@
 
 import { BodyText } from "@/src/components/shared/ui/typography/BodyText";
 import { cn } from "@/src/lib/cn";
-import Image from "next/image";
+import { motion } from "framer-motion";
+import { Check } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const steps = [
   { id: 1, label: "Henvendelse" },
@@ -12,18 +14,29 @@ const steps = [
   {
     id: 5,
     label: "Dit byggeprojekt realiseres",
-    icon: (
-      <Image
-        src="/finish-icon.svg"
-        width={18}
-        height={18}
-        alt="finish icon"
-      />
-    ),
+    isLast: true,
   },
 ];
 
 export function AnimatedStepper() {
+  const [activeStep, setActiveStep] = useState(1);
+
+  useEffect(() => {
+    if (activeStep >= steps.length) return;
+
+    const timer = setInterval(() => {
+      setActiveStep((prev) => {
+        if (prev >= steps.length) {
+          clearInterval(timer);
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, [activeStep]);
+
   return (
     <div className="flex items-start gap-3">
       <div
@@ -33,29 +46,90 @@ export function AnimatedStepper() {
         }}
         className="p-3 w-fit space-y-8 rounded-full"
       >
-        {steps.map((step) => (
-          <div
-            key={step.id}
-            className={cn(
-              "size-9 shrink-0 rounded-full flex justify-center items-center",
-              !step.icon && "bg-secondary-green"
-            )}
-          >
-            {step.icon || <BodyText variant="20Medium">{step.id}</BodyText>}
-          </div>
-        ))}
+        {steps.map((step) => {
+          const isActive = step.id === activeStep;
+          const isCompleted = step.id < activeStep;
+
+          return (
+            <motion.div
+              key={step.id}
+              className="size-9 shrink-0 rounded-full flex justify-center items-center bg-secondary-background"
+              animate={{
+                backgroundColor:
+                  isActive || isCompleted
+                    ? "var(--secondary-green)"
+                    : "var(--secondary-background)",
+                scale: isActive ? 1.1 : 1,
+              }}
+              transition={{
+                duration: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
+              {step.isLast ? (
+                <motion.div
+                  animate={{
+                    scale: isActive ? 1.2 : 1,
+                    rotate: isActive ? 360 : 0,
+                  }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Check
+                    className={cn("size-5", isActive ? "text-foreground" : "text-secondary-green")}
+                    strokeWidth={2.5}
+                  />
+                </motion.div>
+              ) : (
+                <motion.div
+                  animate={{
+                    scale: isActive ? 1.1 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <BodyText
+                    variant="20Medium"
+                    className={cn(
+                      isActive || isCompleted ? "text-foreground!" : "text-secondary-green!"
+                    )}
+                  >
+                    {step.id}
+                  </BodyText>
+                </motion.div>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
 
-      <div className="py-4 space-y-11">
-        {steps.map((step) => (
-          <BodyText
-            key={step.id}
-            variant="18Normal"
-            className="text-brand-primary!"
-          >
-            {step.label}
-          </BodyText>
-        ))}
+      <div className="py-4 space-y-10.25">
+        {steps.map((step) => {
+          const isActive = step.id === activeStep;
+          const isCompleted = step.id < activeStep;
+
+          return (
+            <motion.div
+              key={step.id}
+              animate={{
+                opacity: isActive ? 1 : isCompleted ? 1 : 0.5,
+                x: isActive ? 4 : 0,
+              }}
+              transition={{
+                duration: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
+              <BodyText
+                variant="18Normal"
+                className={cn(
+                  "transition-colors duration-400",
+                  isActive ? "text-brand-primary! font-medium" : "text-brand-primary!"
+                )}
+              >
+                {step.label}
+              </BodyText>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );

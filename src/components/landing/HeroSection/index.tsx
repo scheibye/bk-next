@@ -1,7 +1,7 @@
 import { CollaborationCompaniesLogo } from "@/src/components/landing/CollaborationCompaniesLogo";
 import { ContactUsForm } from "@/src/components/landing/ContactUsForm";
+import { Header } from "@/src/components/landing/Header";
 import { Container } from "@/src/components/shared/Container";
-import { Logo } from "@/src/components/shared/Logo";
 import { BodyText } from "@/src/components/shared/ui/typography/BodyText";
 import { Headline } from "@/src/components/shared/ui/typography/Headline";
 
@@ -20,7 +20,7 @@ export function HeroSection() {
         variant="inner"
         className="h-full relative z-10 py-16"
       >
-        <Logo />
+        <Header />
 
         <div className="w-full h-full flex items-center justify-between gap-12">
           <div className="max-w-xl flex flex-col items-start">

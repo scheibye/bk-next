@@ -7,7 +7,7 @@ export function TargetAudienceSection() {
   return (
     <Container
       as="section"
-      className="py-12"
+      className="py-12.5"
     >
       <Container
         variant="inner"

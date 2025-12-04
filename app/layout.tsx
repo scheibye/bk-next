@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+
+import { Footer } from "@/src/components/landing/Footer";
+import "swiper/css";
 import "./globals.css";
 
 const inter = Inter({
@@ -27,7 +30,10 @@ export default function RootLayout({
       lang="da"
       className={`${inter.variable} ${jakarta.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

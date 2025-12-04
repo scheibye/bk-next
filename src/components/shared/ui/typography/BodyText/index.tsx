@@ -6,12 +6,15 @@ export const BodyTextVariantMap = {
   "20Medium": "text-xl font-medium leading-[150%]",
 
   "18Semibold": "text-lg font-semibold leading-[150%]",
-  "18Normal": "text-lg font-normal leading-[150%]",
+  "18": "text-lg font-normal leading-[150%]",
 
+  "16Semibold": "text-base font-normal leading-[150%]",
   "16": "text-base font-normal leading-[150%]",
 
   "14": "text-sm font-normal leading-[150%]",
   "14Semibold": "text-sm font-semibold leading-[150%]",
+
+  "12": "text-xs font-normal leading-[150%]",
 } as const satisfies VariantMap;
 
 export type BodyTextVariant = keyof typeof BodyTextVariantMap;

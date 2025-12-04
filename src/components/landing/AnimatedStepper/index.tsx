@@ -5,7 +5,7 @@ import { cn } from "@/src/lib/cn";
 import { motion, useInView } from "framer-motion";
 import { Check } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const steps = [
   { id: 1, label: "Henvendelse" },
@@ -137,7 +137,7 @@ export function AnimatedStepper() {
               }}
             >
               <BodyText
-                variant="18Normal"
+                variant="18"
                 className={cn(
                   "transition-colors duration-400",
                   isActive ? "text-brand-primary! font-medium" : "text-brand-primary!"

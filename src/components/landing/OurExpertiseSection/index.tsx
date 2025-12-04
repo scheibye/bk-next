@@ -65,14 +65,14 @@ export function OurExpertiseSection() {
 
           <Button
             variant="secondary"
-            className="mt-10 max-w-none md:max-w-xs flex items-center justify-between"
+            className="mt-10 max-w-none md:max-w-xs flex items-center justify-between group"
           >
             {/* empty div for spacing */}
             <div className="size-5 shrink-0" />
             Kom i gang
             <ArrowRight
               size={20}
-              className="text-foreground"
+              className="text-foreground transition-transform duration-300 group-hover:translate-x-1"
             />
           </Button>
         </div>

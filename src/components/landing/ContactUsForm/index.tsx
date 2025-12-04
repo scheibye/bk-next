@@ -69,16 +69,14 @@ export function ContactUsForm() {
           type="submit"
           variant="secondary"
           disabled={isSubmitting}
-          className="flex items-center justify-between"
+          className="flex items-center justify-between group"
         >
           {/* empty div for spacing */}
           <div className="size-5 shrink-0" />
-
           {isSubmitting ? "Sender..." : "Kom i gang"}
-
           <ArrowRight
             size={20}
-            className="text-foreground"
+            className="text-foreground transition-transform duration-300 group-hover:translate-x-1"
           />
         </Button>
       </form>

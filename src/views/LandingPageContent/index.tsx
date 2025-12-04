@@ -1,4 +1,3 @@
-import { Footer } from "@/src/components/landing/Footer";
 import { FundedProjectsSection } from "@/src/components/landing/FundedProjectsSection";
 import { HeroSection } from "@/src/components/landing/HeroSection";
 import { HowItWorksSection } from "@/src/components/landing/HowItWorksSection";
@@ -13,7 +12,6 @@ export function LandingPageContent() {
       <TargetAudienceSection />
       <OurExpertiseSection />
       <FundedProjectsSection />
-      <Footer />
     </div>
   );
 }

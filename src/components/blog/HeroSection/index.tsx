@@ -19,7 +19,7 @@ export function HeroSection() {
         <div className="pt-12.5 mx-auto w-full max-w-xl h-full flex flex-col items-center justify-center gap-4">
           <Headline>Blog</Headline>
           <BodyText
-            variant="18Normal"
+            variant="18"
             className="text-center"
           >
             Indsigt og inspiration til dit næste byggeprojekt. Få de seneste nyheder om finansiering

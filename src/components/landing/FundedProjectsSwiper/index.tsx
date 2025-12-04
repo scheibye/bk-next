@@ -1,7 +1,6 @@
 "use client";
 
 import type { Swiper as SwiperType } from "swiper";
-import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { FundedProjectCard } from "@/src/components/landing/FundedProjectCard";

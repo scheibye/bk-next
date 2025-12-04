@@ -43,7 +43,7 @@ export function TargetAudienceCard({
           </BodyText>
           <ArrowRight
             size={20}
-            className="text-brand-primary group-hover:text-secondary-orange!"
+            className="text-brand-primary group-hover:text-secondary-orange! transition-transform duration-300 group-hover:translate-x-1"
           />
         </button>
       </div>

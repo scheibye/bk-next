@@ -99,3 +99,13 @@ input:-webkit-autofill:active {
   caret-color: var(--gray-900);
   transition: background-color 5000s ease-in-out 0s;
 }
+
+.scrollbar-none {
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

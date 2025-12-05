@@ -1,7 +1,11 @@
+"use client";
+
+import { AnimatedContainer } from "@/src/components/shared/AnimatedContainer";
 import { Button } from "@/src/components/shared/Button";
 import { Container } from "@/src/components/shared/Container";
 import { BodyText } from "@/src/components/shared/ui/typography/BodyText";
 import { Headline } from "@/src/components/shared/ui/typography/Headline";
+import { div } from "framer-motion/client";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
@@ -12,12 +16,17 @@ export function OurExpertiseSection() {
       className="relative bg-brand-primary md:rounded-xl overflow-hidden"
     >
       {/* desktop pattern bg */}
-      <div
+      <AnimatedContainer
+        preset="scale"
+        duration={1}
         className="absolute inset-y-0 right-0 h-full w-1/3 bg-cover bg-repeat bg-right hidden md:block"
         style={{ backgroundImage: "url('/pattern-bg/our-expertise.webp')" }}
       />
+
       {/* mobile pattern bg */}
-      <div
+      <AnimatedContainer
+        preset="scale"
+        duration={1}
         className="absolute inset-y-0 right-0 w-2/5 bg-cover bg-no-repeat md:hidden"
         style={{ backgroundImage: "url('/pattern-bg/our-expertise-mobile.webp')" }}
       />
@@ -37,22 +46,56 @@ export function OurExpertiseSection() {
 
         <div>
           <div className="flex flex-col gap-7.5">
-            <Headline
-              as="h2"
-              variant="h2"
+            <AnimatedContainer
+              preset="fadeUp"
+              delay={0.2}
+              duration={0.6}
             >
-              Erfaringen bag vores løsninger
-            </Headline>
-            <BodyText>Vi har finansieret byggeprojekter i over to årtier.</BodyText>
-            <BodyText>
-              Vores tilgang er enkel: solide data, grundig vurdering og ærlig rådgivning. Vi ved, at
-              hvert projekt er forskelligt – derfor ser vi altid på den reelle værdi og potentiale.
-            </BodyText>
-            <BodyText>
-              Hos Byggekredit får du en partner, der følger dig hele vejen. Fra første vurdering til
-              sidste udbetaling. Tryghed, indsigt og erfaring i én løsning.
-            </BodyText>
-            <div className="flex flex-col gap-2.5">
+              <Headline
+                as="h2"
+                variant="h2"
+              >
+                Erfaringen bag vores løsninger
+              </Headline>
+            </AnimatedContainer>
+
+            <AnimatedContainer
+              preset="fadeUp"
+              delay={0.35}
+              duration={0.6}
+            >
+              <BodyText>Vi har finansieret byggeprojekter i over to årtier.</BodyText>
+            </AnimatedContainer>
+
+            <AnimatedContainer
+              preset="fadeUp"
+              delay={0.5}
+              duration={0.6}
+            >
+              <BodyText>
+                Vores tilgang er enkel: solide data, grundig vurdering og ærlig rådgivning. Vi ved,
+                at hvert projekt er forskelligt – derfor ser vi altid på den reelle værdi og
+                potentiale.
+              </BodyText>
+            </AnimatedContainer>
+
+            <AnimatedContainer
+              preset="fadeUp"
+              delay={0.65}
+              duration={0.6}
+            >
+              <BodyText>
+                Hos Byggekredit får du en partner, der følger dig hele vejen. Fra første vurdering
+                til sidste udbetaling. Tryghed, indsigt og erfaring i én løsning.
+              </BodyText>
+            </AnimatedContainer>
+
+            <AnimatedContainer
+              preset="fadeUp"
+              delay={0.8}
+              duration={0.6}
+              className="flex flex-col gap-2.5"
+            >
               <Headline
                 as="h3"
                 variant="h3"
@@ -60,21 +103,27 @@ export function OurExpertiseSection() {
                 Brian Efternavn
               </Headline>
               <BodyText className="text-gray-500">CFO hos Byggekredit</BodyText>
-            </div>
+            </AnimatedContainer>
           </div>
 
-          <Button
-            variant="secondary"
-            className="mt-10 max-w-none md:max-w-xs flex items-center justify-between group"
+          <AnimatedContainer
+            preset="fadeUp"
+            delay={0.95}
+            duration={0.5}
           >
-            {/* empty div for spacing */}
-            <div className="size-5 shrink-0" />
-            Kom i gang
-            <ArrowRight
-              size={20}
-              className="text-foreground transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Button>
+            <Button
+              variant="secondary"
+              className="mt-10 max-w-none md:max-w-xs flex items-center justify-between group"
+            >
+              {/* empty div for spacing */}
+              <div className="size-5 shrink-0" />
+              Kom i gang
+              <ArrowRight
+                size={20}
+                className="text-foreground transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Button>
+          </AnimatedContainer>
         </div>
       </Container>
     </Container>

@@ -22,9 +22,9 @@ export function NewsletterSection() {
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
             <div className="flex flex-col gap-4">
-              <div className="inline-flex items-center gap-2 bg-gray-500/25 px-4 py-2 rounded-full w-fit text-base text-secondary-foreground">
+              <div className="inline-flex items-center gap-2 bg-gray-500/50 px-4 py-2 rounded-full w-fit text-base text-secondary-foreground">
                 <Mail className="size-4 shrink-0" />
-                Nyhedsbrev
+                <BodyText variant="14">Nyhedsbrev</BodyText>
               </div>
 
               <Headline

@@ -1,6 +1,7 @@
 "use client";
 
 import { FundedProjectsSwiper } from "@/src/components/landing/FundedProjectsSwiper";
+import { AnimatedContainer } from "@/src/components/shared/AnimatedContainer";
 import { Container } from "@/src/components/shared/Container";
 import { BodyText } from "@/src/components/shared/ui/typography/BodyText";
 import { Headline } from "@/src/components/shared/ui/typography/Headline";
@@ -28,7 +29,11 @@ export function FundedProjectsSection() {
       className="py-12.5"
     >
       <Container variant="inner">
-        <div className="mb-7.5 md:mb-12.5 flex items-center justify-between gap-4">
+        <AnimatedContainer
+          preset="fadeUp"
+          duration={0.8}
+          className="mb-7.5 md:mb-12.5 flex items-center justify-between gap-4"
+        >
           <Headline
             as="h2"
             variant="h2"
@@ -51,14 +56,18 @@ export function FundedProjectsSection() {
               <ArrowRight className="size-6 text-secondary-orange-100 group-hover:text-foreground" />
             </button>
           </div>
-        </div>
+        </AnimatedContainer>
 
         <FundedProjectsSwiper
           onSwiper={handleSwiper}
           onSlideChange={handleSlideChange}
         />
 
-        <div className="mt-7.5 md:hidden flex items-center justify-center gap-4">
+        <AnimatedContainer
+          preset="fadeUp"
+          delay={0.3}
+          className="mt-7.5 md:hidden flex items-center justify-center gap-4"
+        >
           <button
             onClick={() => swiper?.slidePrev()}
             className="group size-14 bg-secondary-background hover:bg-secondary-orange active:bg-secondary-orange rounded-full border border-gray-500 flex justify-center items-center transition-all duration-300 cursor-pointer"
@@ -76,7 +85,7 @@ export function FundedProjectsSection() {
           >
             <ArrowRight className="size-6 text-secondary-orange-100 group-hover:text-foreground" />
           </button>
-        </div>
+        </AnimatedContainer>
       </Container>
     </Container>
   );

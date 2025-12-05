@@ -40,7 +40,12 @@ export function CategoriesSwiper() {
         className="overflow-x-auto flex flex-nowrap gap-2 scrollbar-none"
       >
         {Array.from({ length: 12 }).map((_, index) => (
-          <CategoryBadge key={index}>Category {index + 1}</CategoryBadge>
+          <CategoryBadge
+            key={index}
+            isSelected={index === 0}
+          >
+            Category {index + 1}
+          </CategoryBadge>
         ))}
       </div>
     </div>

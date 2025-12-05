@@ -60,7 +60,7 @@ export function TheMostEngagedArticleSection() {
                 variant="18Semibold"
                 className="text-secondary-foreground"
               >
-                Firstname Surname
+                Firstname Lastname
               </BodyText>
               <BodyText
                 variant="14"

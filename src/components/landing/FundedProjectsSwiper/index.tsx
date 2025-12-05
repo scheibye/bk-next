@@ -4,6 +4,7 @@ import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { FundedProjectCard } from "@/src/components/landing/FundedProjectCard";
+import { AnimatedContainer } from "@/src/components/shared/AnimatedContainer";
 import { FUNDED_PROJECTS } from "@/src/data/fundedProjects";
 
 interface Props {
@@ -22,18 +23,9 @@ export function FundedProjectsSwiper({ onSwiper, onSlideChange }: Props) {
       resistanceRatio={0.9}
       className="[&_.swiper-slide]:h-auto!"
       breakpoints={{
-        0: {
-          slidesPerView: 1,
-          spaceBetween: 16,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
+        0: { slidesPerView: 1, spaceBetween: 16 },
+        768: { slidesPerView: 2, spaceBetween: 20 },
+        1024: { slidesPerView: 3, spaceBetween: 20 },
       }}
     >
       {FUNDED_PROJECTS.map((item, index) => (
@@ -41,10 +33,16 @@ export function FundedProjectsSwiper({ onSwiper, onSlideChange }: Props) {
           key={index}
           className="h-auto!"
         >
-          <FundedProjectCard
-            item={item}
-            className="h-full"
-          />
+          <AnimatedContainer
+            preset="fadeUp"
+            delay={index * 0.15}
+            duration={0.6}
+          >
+            <FundedProjectCard
+              item={item}
+              className="h-full"
+            />
+          </AnimatedContainer>
         </SwiperSlide>
       ))}
     </Swiper>

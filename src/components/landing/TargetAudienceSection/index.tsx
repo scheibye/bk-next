@@ -1,5 +1,3 @@
-"use client";
-
 import { TargetAudienceCard } from "@/src/components/landing/TargetAudienceCard";
 import { AnimatedContainer } from "@/src/components/shared/AnimatedContainer";
 import { AnimatedStaggerContainer } from "@/src/components/shared/AnimatedStaggerContainer";

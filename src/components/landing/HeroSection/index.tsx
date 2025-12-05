@@ -1,5 +1,3 @@
-"use client";
-
 import { CollaborationCompaniesLogo } from "@/src/components/landing/CollaborationCompaniesLogo";
 import { ContactUsForm } from "@/src/components/landing/ContactUsForm";
 import { Header } from "@/src/components/landing/Header";

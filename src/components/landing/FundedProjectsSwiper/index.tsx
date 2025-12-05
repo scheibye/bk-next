@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FundedProjectCard } from "@/src/components/landing/FundedProjectCard";
 import { AnimatedContainer } from "@/src/components/shared/AnimatedContainer";
 import { FUNDED_PROJECTS } from "@/src/data/fundedProjects";
+import { useState } from "react";
 
 interface Props {
   onSwiper?: (swiper: SwiperType) => void;
@@ -13,10 +14,17 @@ interface Props {
 }
 
 export function FundedProjectsSwiper({ onSwiper, onSlideChange }: Props) {
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  const handleSlideChange = (swiper: SwiperType) => {
+    setHasInteracted(true);
+    onSlideChange?.(swiper);
+  };
+
   return (
     <Swiper
       onSwiper={onSwiper}
-      onSlideChange={onSlideChange}
+      onSlideChange={handleSlideChange}
       speed={1000}
       grabCursor
       resistance
@@ -33,16 +41,24 @@ export function FundedProjectsSwiper({ onSwiper, onSlideChange }: Props) {
           key={index}
           className="h-auto!"
         >
-          <AnimatedContainer
-            preset="fadeUp"
-            delay={index * 0.15}
-            duration={0.6}
-          >
+          {hasInteracted ? (
             <FundedProjectCard
               item={item}
               className="h-full"
             />
-          </AnimatedContainer>
+          ) : (
+            <AnimatedContainer
+              preset="fadeUp"
+              delay={index * 0.15}
+              duration={0.6}
+              className="h-full"
+            >
+              <FundedProjectCard
+                item={item}
+                className="h-full"
+              />
+            </AnimatedContainer>
+          )}
         </SwiperSlide>
       ))}
     </Swiper>

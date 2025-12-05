@@ -1,5 +1,3 @@
-"use client";
-
 import { AnimatedContainer } from "@/src/components/shared/AnimatedContainer";
 import { BodyText } from "@/src/components/shared/ui/typography/BodyText";
 import { Headline } from "@/src/components/shared/ui/typography/Headline";
@@ -17,7 +15,7 @@ export function TargetAudienceCard({
   return (
     <AnimatedContainer
       preset="fadeUp"
-      staggerItem 
+      staggerItem
       className="w-full bg-secondary-background rounded-xl py-6 px-4.5 flex flex-col border border-gray-500"
     >
       <Image

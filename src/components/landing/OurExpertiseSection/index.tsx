@@ -1,11 +1,8 @@
-"use client";
-
 import { AnimatedContainer } from "@/src/components/shared/AnimatedContainer";
 import { Button } from "@/src/components/shared/Button";
 import { Container } from "@/src/components/shared/Container";
 import { BodyText } from "@/src/components/shared/ui/typography/BodyText";
 import { Headline } from "@/src/components/shared/ui/typography/Headline";
-import { div } from "framer-motion/client";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 

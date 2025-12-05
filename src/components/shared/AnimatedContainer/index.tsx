@@ -99,9 +99,6 @@ export const AnimatedContainer = forwardRef<HTMLElement, Props>(
         <MotionComponent
           ref={ref as React.Ref<HTMLDivElement>}
           variants={staggerPresets[preset]}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once, amount }}
           {...props}
         >
           {children}

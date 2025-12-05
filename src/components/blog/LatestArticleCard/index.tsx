@@ -7,7 +7,7 @@ export function LatestArticleCard() {
     <div className="w-full bg-secondary-background rounded-xl flex flex-col border border-gray-500">
       <div className="w-full h-[220px] bg-brand-primary rounded-xl object-cover" />
 
-      <div className="p-4 mt-4 md:mt-6 flex-1 flex flex-col justify-between gap-4 md:gap-6">
+      <div className="p-4 flex-1 flex flex-col justify-between gap-4 md:gap-6">
         <div className="flex items-center gap-6">
           <CategoryBadge variant="secondary">Category 1</CategoryBadge>
           <BodyText

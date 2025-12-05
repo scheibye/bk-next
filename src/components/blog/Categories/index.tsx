@@ -27,7 +27,7 @@ export function CategoriesSwiper() {
   }, []);
 
   return (
-    <div className="relative mx-auto max-w-7xl">
+    <div className="px-5 relative mx-auto max-w-7xl">
       {showLeftShadow && (
         <div className="pointer-events-none absolute -left-0.5 top-0 w-10 h-full bg-linear-to-r from-background to-transparent z-10" />
       )}

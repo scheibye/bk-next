@@ -1,6 +1,7 @@
 import { CategoriesSwiper } from "@/src/components/blog/Categories";
 import { HeroSection } from "@/src/components/blog/HeroSection";
 import { LatestArticlesSection } from "@/src/components/blog/LatestArticlesSection";
+import { NewsletterSection } from "@/src/components/blog/NewsletterSection";
 import { TheMostEngagedArticleSection } from "@/src/components/blog/TheMostEngagedArticleSection";
 
 export function BlogPageContent() {
@@ -10,6 +11,7 @@ export function BlogPageContent() {
       <CategoriesSwiper />
       <TheMostEngagedArticleSection />
       <LatestArticlesSection />
+      <NewsletterSection />
     </div>
   );
 }

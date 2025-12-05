@@ -15,9 +15,9 @@ export function TheMostEngagedArticleSection() {
         variant="inner"
         className="md:px-0 grid grid-cols-1 lg:grid-cols-2 rounded-2xl"
       >
-        <div className="bg-gray-200 h-full rounded-2xl" />
+        <div className="bg-gray-200 h-[50vh] max-h-[400px] lg:h-full lg:max-h-none rounded-2xl" />
 
-        <div className="lg:p-12 flex flex-col items-start gap-8">
+        <div className="pt-4 lg:p-12 flex flex-col items-start gap-6 lg:gap-8">
           <div className="flex items-center gap-6">
             <CategoryBadge variant="secondary">Category 1</CategoryBadge>
             <BodyText

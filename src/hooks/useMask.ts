@@ -6,8 +6,6 @@ export type Props = {
 };
 
 export const useMask = ({ mask }: Props) => {
-  const inputRef = useMaskVanilla(options);
-
   const options = useMemo(
     () => ({
       mask,
@@ -15,6 +13,7 @@ export const useMask = ({ mask }: Props) => {
     }),
     [mask]
   );
+  const inputRef = useMaskVanilla(options);
 
   const hasEmptyMask = mask.split("").every((char) => {
     return char === "_";

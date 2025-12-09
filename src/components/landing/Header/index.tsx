@@ -1,7 +1,7 @@
 import { Container } from "@/src/components/shared/Container";
 import { Logo } from "@/src/components/shared/Logo";
 import { BodyText } from "@/src/components/shared/ui/typography/BodyText";
-import { ROUTES } from "@/src/config";
+import { ROUTES } from "@/src/config/routes";
 import Link from "next/link";
 
 export function Header() {

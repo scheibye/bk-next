@@ -3,9 +3,10 @@ import { cn } from "@/src/lib/cn";
 import Image from "next/image";
 import { HTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {}
-
-export function CollaborationCompaniesLogo({ className, ...rest }: Props) {
+export function CollaborationCompaniesLogo({
+  className,
+  ...rest
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn("space-y-5", className)}

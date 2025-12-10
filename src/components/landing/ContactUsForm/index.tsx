@@ -2,6 +2,8 @@
 
 import { Field } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCallback, useId, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -13,13 +15,13 @@ import { InputField } from "@/src/components/shared/InputField";
 import { PhoneNumberInput } from "@/src/components/shared/PhoneNumberInput";
 import { ErrorText } from "@/src/components/shared/ui/typography/ErrorText";
 import { Headline } from "@/src/components/shared/ui/typography/Headline";
+import { APP_CONFIG } from "@/src/config/appConfig";
 import { cn } from "@/src/lib/cn";
 import { countryList } from "@/src/lib/phone-number-input/countryList";
 import {
   ContactUsFormSchema,
   contactUsValidator,
 } from "@/src/lib/validators/contactUsFormValidator";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const DEFAULT_COUNTRY_CODE = "+45";
 
@@ -54,39 +56,49 @@ export function ContactUsForm() {
   });
 
   const onSubmit = async (data: ContactUsFormSchema) => {
-    const apiKey = process.env.NEXT_PUBLIC_MAKE_API_KEY;
-    if (!apiKey) {
-      console.error("Make API key is missing");
+    if (step !== 2) {
       return;
     }
 
-    const payload = {
-      ...data,
-      phone: `${countryCode}${phoneNumber}`,
-    };
+    const formData = new FormData();
+    formData.append("name", data.fullName);
+    formData.append("email", data.email);
+    formData.append("phone", `${countryCode}${phoneNumber.replace(/\D/g, "")}`);
+    formData.append("message", data.description || "");
+    formData.append("pageUrl", window.location.href || "");
+
+    if (data.files && data.files.length > 0) {
+      for (const file of data.files) {
+        formData.append("files", file);
+      }
+    }
 
     try {
-      // await axios.post("https://hook.eu1.make.com/u9dbs04hz3f8on87iugkw1rgfwb2vz1s", payload, {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "x-make-apikey": apiKey,
-      //   },
-      // });
-      console.log("Form submitted successfully:", payload);
+      await axios.post(APP_CONFIG.MAKE_WEBHOOK_URL, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-make-apikey": APP_CONFIG.MAKE_API_KEY,
+        },
+      });
       setIsSubmitted(true);
     } catch (err) {
       console.error("Submission failed:", err);
     }
   };
 
-  const handleNextStep = async () => {
+  const handleNextStep = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     const isValid = await trigger(["fullName", "email", "phone"]);
     if (isValid) {
       setStep(2);
     }
   };
 
-  const handlePrevStep = () => {
+  const handlePrevStep = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     setStep(1);
   };
 

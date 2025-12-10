@@ -35,7 +35,7 @@ export const CountryCodeInput: FC<Props> = ({ countryList, value, onChange }) =>
       >
         <ListboxButton
           className={cn(
-            "relative w-full py-4 px-2 text-base text-gray-900 placeholder:text-gray-600 border rounded-md outline-none transition-colors duration-300 flex items-center gap-2",
+            "relative w-full py-3.5 px-2 text-base text-gray-900 placeholder:text-gray-600 border rounded-md outline-none transition-colors duration-300 flex items-center gap-2",
             "border-border focus:border-gray-900"
           )}
         >

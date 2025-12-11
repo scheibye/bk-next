@@ -2,11 +2,11 @@
 
 import { Field } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useCallback, useId, useState } from "react";
+import { useId, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
+import { submitContactForm } from "@/app/actions/submitContactForm";
 import { SuccessStep } from "@/src/components/landing/ContactUsForm/SuccessStep";
 import { Button } from "@/src/components/shared/Button";
 import { CountryCodeInput } from "@/src/components/shared/CountryCodeInput";
@@ -15,7 +15,6 @@ import { InputField } from "@/src/components/shared/InputField";
 import { PhoneNumberInput } from "@/src/components/shared/PhoneNumberInput";
 import { ErrorText } from "@/src/components/shared/ui/typography/ErrorText";
 import { Headline } from "@/src/components/shared/ui/typography/Headline";
-import { APP_CONFIG } from "@/src/config/appConfig";
 import { cn } from "@/src/lib/cn";
 import { countryList } from "@/src/lib/phone-number-input/countryList";
 import {
@@ -29,17 +28,7 @@ export function ContactUsForm() {
   const id = useId();
 
   const [step, setStep] = useState(1);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [countryCode, setCountryCode] = useState<string>(DEFAULT_COUNTRY_CODE);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleCodeChange = useCallback((nextCode?: string) => {
-    if (nextCode) {
-      setCountryCode(nextCode);
-    }
-  }, []);
-
-  const mask = countryList.find(({ code }) => code === countryCode)?.mask;
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
 
   const {
     register,
@@ -47,6 +36,8 @@ export function ContactUsForm() {
     control,
     formState: { errors, isSubmitting },
     trigger,
+    setError,
+    watch,
   } = useForm<ContactUsFormSchema>({
     resolver: zodResolver(contactUsValidator),
     defaultValues: {
@@ -55,41 +46,39 @@ export function ContactUsForm() {
     },
   });
 
+  const selectedCode = watch("countryCode");
+  const mask = countryList.find(({ code }) => code === selectedCode)?.mask;
+
   const onSubmit = async (data: ContactUsFormSchema) => {
-    if (step !== 2) {
-      return;
-    }
+    if (step !== 2) return;
 
     const formData = new FormData();
     formData.append("name", data.fullName);
     formData.append("email", data.email);
-    formData.append("phone", `${countryCode}${phoneNumber.replace(/\D/g, "")}`);
+    formData.append("phone", `${data.countryCode}${data.phone.replace(/\D/g, "")}`);
     formData.append("message", data.description || "");
     formData.append("pageUrl", window.location.href || "");
 
-    if (data.files && data.files.length > 0) {
+    if (data.files?.length) {
       for (const file of data.files) {
         formData.append("files", file);
       }
     }
 
-    try {
-      await axios.post(APP_CONFIG.MAKE_WEBHOOK_URL, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "x-make-apikey": APP_CONFIG.MAKE_API_KEY,
-        },
+    const result = await submitContactForm(formData);
+
+    if (result.success) {
+      setIsSubmitSuccessful(true);
+    } else {
+      setError("root.serverError", {
+        message: result.error || "Der opstod en fejl under afsendelse. Prøv venligst igen.",
       });
-      setIsSubmitted(true);
-    } catch (err) {
-      console.error("Submission failed:", err);
     }
   };
 
   const handleNextStep = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-
     const isValid = await trigger(["fullName", "email", "phone"]);
     if (isValid) {
       setStep(2);
@@ -102,7 +91,7 @@ export function ContactUsForm() {
     setStep(1);
   };
 
-  if (isSubmitted) {
+  if (isSubmitSuccessful) {
     return <SuccessStep />;
   }
 
@@ -128,6 +117,7 @@ export function ContactUsForm() {
               {...register("fullName")}
               error={errors.fullName}
             />
+
             <InputField
               label="E-mail"
               type="email"
@@ -141,19 +131,16 @@ export function ContactUsForm() {
               <label className="px-1 text-sm font-semibold text-gray-900">
                 Telefon nr. <span className="text-error-100">*</span>
               </label>
+
               <div className="flex gap-2">
                 <Controller
                   name="countryCode"
                   control={control}
-                  defaultValue={DEFAULT_COUNTRY_CODE}
                   render={({ field }) => (
                     <CountryCodeInput
                       countryList={countryList}
                       value={field.value}
-                      onChange={(v) => {
-                        field.onChange(v);
-                        handleCodeChange(v);
-                      }}
+                      onChange={field.onChange}
                     />
                   )}
                 />
@@ -161,16 +148,12 @@ export function ContactUsForm() {
                 <Controller
                   name="phone"
                   control={control}
-                  defaultValue=""
                   render={({ field }) => (
                     <PhoneNumberInput
                       id={id}
                       mask={mask}
                       value={field.value || ""}
-                      onChange={(v) => {
-                        field.onChange(v);
-                        setPhoneNumber(v);
-                      }}
+                      onChange={field.onChange}
                     />
                   )}
                 />
@@ -185,9 +168,10 @@ export function ContactUsForm() {
           <div className="mb-8 space-y-6">
             <div className="flex flex-col gap-2">
               <label className="px-1 text-sm font-semibold text-gray-900">Beskrivelse</label>
+
               <textarea
-                placeholder="Fortæl os om dit projekt eller hvad vi kan hjælpe med..."
                 {...register("description")}
+                placeholder="Fortæl os om dit projekt eller hvad vi kan hjælpe med..."
                 rows={4}
                 className={cn(
                   "w-full rounded-md px-3 py-2.5 text-sm text-secondary-foreground placeholder:text-gray-600",
@@ -198,6 +182,7 @@ export function ContactUsForm() {
 
             <div className="flex flex-col gap-2">
               <label className="px-1 text-sm font-semibold text-gray-900">Upload filer</label>
+
               <Controller
                 name="files"
                 control={control}
@@ -210,6 +195,10 @@ export function ContactUsForm() {
               />
             </div>
           </div>
+        )}
+
+        {errors.root?.serverError && (
+          <ErrorText className="mb-2">{errors.root.serverError.message}</ErrorText>
         )}
 
         <div className="flex gap-3">
@@ -246,7 +235,10 @@ export function ContactUsForm() {
               type="submit"
               variant="secondary"
               disabled={isSubmitting}
-              className="flex flex-1 items-center justify-between group"
+              className={cn(
+                "flex flex-1 items-center justify-between group",
+                isSubmitting && "opacity-50"
+              )}
             >
               <div className="size-5 shrink-0" />
               {isSubmitting ? "Sender..." : "Send"}

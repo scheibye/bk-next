@@ -6,7 +6,8 @@ const phoneBase = z
   .regex(/^[0-9+\s()-]+$/, "Telefon nr. må kun indeholde tal og almindelige tegn");
 
 export const step1Validator = z.object({
-  fullName: z.string().min(1, "Fulde navn er påkrævet"),
+  firstName: z.string().min(1, "Fornavn er påkrævet"),
+  lastName: z.string().min(1, "Efternavn er påkrævet"),
   email: z
     .string()
     .min(1, "E-mail er påkrævet")

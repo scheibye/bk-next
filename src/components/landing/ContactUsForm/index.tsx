@@ -53,7 +53,8 @@ export function ContactUsForm() {
     if (step !== 2) return;
 
     const formData = new FormData();
-    formData.append("name", data.fullName);
+    formData.append("first", data.firstName);
+    formData.append("lastname", data.lastName);
     formData.append("email", data.email);
     formData.append("phone", `${data.countryCode}${data.phone.replace(/\D/g, "")}`);
     formData.append("message", data.description || "");
@@ -80,7 +81,7 @@ export function ContactUsForm() {
   const handleNextStep = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const isValid = await trigger(["fullName", "email", "phone", "countryCode"]);
+    const isValid = await trigger(["firstName", "lastName", "email", "phone", "countryCode"]);
     if (isValid) {
       setStep(2);
     }
@@ -111,15 +112,25 @@ export function ContactUsForm() {
         {step === 1 && (
           <div className="mb-8 space-y-6">
             <InputField
-              label="Fulde navn"
-              placeholder="Dit fulde navn"
-              autoComplete="name"
-              isRequired
-              autoFocus
-              aria-invalid={!!errors.fullName}
-              {...register("fullName")}
-              error={errors.fullName}
-            />
+          label="Fornavn"
+          placeholder="Dit fornavn"
+          autoComplete="given-name"
+          isRequired
+          autoFocus
+          aria-invalid={!!errors.firstName}
+          {...register("firstName")}
+          error={errors.firstName}
+        />
+
+        <InputField
+          label="Efternavn"
+          placeholder="Dit efternavn"
+          autoComplete="family-name"
+          isRequired
+          aria-invalid={!!errors.lastName}
+          {...register("lastName")}
+          error={errors.lastName}
+        />
 
             <InputField
               label="E-mail"

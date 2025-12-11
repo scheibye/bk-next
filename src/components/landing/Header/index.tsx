@@ -11,7 +11,9 @@ export function Header() {
       variant="inner"
       className="p-0 flex justify-between items-center gap-12"
     >
-      <Logo className="max-w-[180px] md:max-w-none md:w-fit" />
+      <Link href={ROUTES.HOME_PAGE}>
+        <Logo className="max-w-[180px] md:max-w-none md:w-fit cursor-pointer" />
+      </Link>
 
       <nav className="hidden md:block">
         <ul>

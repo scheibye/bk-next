@@ -71,7 +71,8 @@ export function ContactUsForm() {
       setIsSubmitSuccessful(true);
     } else {
       setError("root.serverError", {
-        message: result.error || "Der opstod en fejl under afsendelse. Prøv venligst igen.",
+        message:
+          result.error || "Der opstod en fejl under afsendelse. Prøv venligst igen.",
       });
     }
   };
@@ -79,7 +80,7 @@ export function ContactUsForm() {
   const handleNextStep = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    const isValid = await trigger(["fullName", "email", "phone"]);
+    const isValid = await trigger(["fullName", "email", "phone", "countryCode"]);
     if (isValid) {
       setStep(2);
     }
@@ -95,25 +96,28 @@ export function ContactUsForm() {
     return <SuccessStep />;
   }
 
+  const phoneErrorId = `${id}-phone-error`;
+  const descriptionErrorId = `${id}-description-error`;
+
   return (
     <div className="w-full max-w-xl lg:min-w-[450px] bg-secondary-background py-8 md:py-12.5 px-4 md:px-10 lg:w-fit rounded-xl flex flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <Headline
-          as="h3"
-          variant="h3"
-          className="text-secondary-foreground"
-        >
+        <Headline as="h3" variant="h3" className="text-secondary-foreground">
           Bliv kontaktet
         </Headline>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      {/* 1) Form får autoComplete + noValidate så vi styrer validation via RHF/Zod */}
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="on" noValidate>
         {step === 1 && (
           <div className="mb-8 space-y-6">
             <InputField
               label="Fulde navn"
-              placeholder="Fornavn Efternavn"
+              placeholder="Dit fulde navn"
+              autoComplete="name"
               isRequired
+              autoFocus 
+              aria-invalid={!!errors.fullName}
               {...register("fullName")}
               error={errors.fullName}
             />
@@ -121,15 +125,17 @@ export function ContactUsForm() {
             <InputField
               label="E-mail"
               type="email"
-              placeholder="youremail@domain.com"
+              autoComplete="email" 
+              placeholder="din@email.dk"
               isRequired
+              aria-invalid={!!errors.email}
               {...register("email")}
               error={errors.email}
             />
 
             <Field className="flex flex-col gap-2">
               <label className="px-1 text-sm font-semibold text-gray-900">
-                Telefon nr. <span className="text-error-100">*</span>
+                Telefonnummer <span className="text-error-100">*</span>
               </label>
 
               <div className="flex gap-2">
@@ -141,6 +147,12 @@ export function ContactUsForm() {
                       countryList={countryList}
                       value={field.value}
                       onChange={field.onChange}
+                      autoComplete="tel-country-code"
+                      aria-label="Landekode"
+                      aria-invalid={!!errors.countryCode}
+                      aria-describedby={
+                        errors.phone || errors.countryCode ? phoneErrorId : undefined
+                      }
                     />
                   )}
                 />
@@ -154,12 +166,22 @@ export function ContactUsForm() {
                       mask={mask}
                       value={field.value || ""}
                       onChange={field.onChange}
+                      autoComplete="tel-national"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={
+                        errors.phone || errors.countryCode ? phoneErrorId : undefined
+                      }
                     />
                   )}
                 />
               </div>
 
-              {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
+              {/* 4) Fejl for både phone og countryCode, bundet til aria-describedby */}
+              {(errors.phone || errors.countryCode) && (
+                <ErrorText id={phoneErrorId}>
+                  {errors.phone?.message || errors.countryCode?.message}
+                </ErrorText>
+              )}
             </Field>
           </div>
         )}
@@ -167,21 +189,34 @@ export function ContactUsForm() {
         {step === 2 && (
           <div className="mb-8 space-y-6">
             <div className="flex flex-col gap-2">
-              <label className="px-1 text-sm font-semibold text-gray-900">Beskrivelse</label>
+              <label className="px-1 text-sm font-semibold text-gray-900">
+                Beskrivelse af din henvendelse
+              </label>
 
               <textarea
                 {...register("description")}
-                placeholder="Fortæl os om dit projekt eller hvad vi kan hjælpe med..."
+                placeholder="Fortæl kort om dit projekt, eller hvad du har brug for hjælp til."
                 rows={4}
+                autoComplete="off" 
+                autoFocus 
+                aria-invalid={!!errors.description}
+                aria-describedby={errors.description ? descriptionErrorId : undefined}
                 className={cn(
                   "w-full rounded-md px-3 py-2.5 text-sm text-secondary-foreground placeholder:text-gray-600",
                   "border border-border resize-none outline-none"
                 )}
               />
+              {errors.description && (
+                <ErrorText id={descriptionErrorId}>
+                  {errors.description.message}
+                </ErrorText>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="px-1 text-sm font-semibold text-gray-900">Upload filer</label>
+              <label className="px-1 text-sm font-semibold text-gray-900">
+                Vedhæft filer (valgfrit)
+              </label>
 
               <Controller
                 name="files"
@@ -209,10 +244,7 @@ export function ContactUsForm() {
               onClick={handlePrevStep}
               className="w-fit"
             >
-              <ArrowLeft
-                size={20}
-                className="text-gray-900"
-              />
+              <ArrowLeft size={20} className="text-gray-900" />
             </Button>
           )}
 
@@ -221,6 +253,7 @@ export function ContactUsForm() {
               type="button"
               variant="secondary"
               onClick={handleNextStep}
+              disabled={isSubmitting} 
               className="flex flex-1 items-center justify-between group"
             >
               <div className="size-5 shrink-0" />
@@ -235,6 +268,7 @@ export function ContactUsForm() {
               type="submit"
               variant="secondary"
               disabled={isSubmitting}
+              aria-busy={isSubmitting} 
               className={cn(
                 "flex flex-1 items-center justify-between group",
                 isSubmitting && "opacity-50"

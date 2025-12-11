@@ -8,6 +8,7 @@ const buttonVariants = tv({
     variant: {
       primary: "bg-secondary-green hover:opacity-90",
       secondary: "bg-secondary-orange hover:opacity-90",
+      transparent: "bg-transparent border border-border hover:bg-secondary-background",
     },
   },
   defaultVariants: {
@@ -15,7 +16,7 @@ const buttonVariants = tv({
   },
 });
 
-type ButtonVariant = "primary" | "secondary";
+type ButtonVariant = "primary" | "secondary" | "transparent";
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: ButtonVariant;

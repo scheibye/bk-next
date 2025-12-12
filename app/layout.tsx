@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 import { Footer } from "@/src/components/landing/Footer";
 import "swiper/css";
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body>
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

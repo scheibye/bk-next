@@ -12,6 +12,7 @@
     "@headlessui/react": "^2.2.9",
     "@hookform/resolvers": "^5.2.2",
     "@react-input/mask": "^2.0.4",
+    "@vercel/analytics": "^1.6.1",
     "framer-motion": "^12.23.24",
     "libphonenumber-js": "^1.12.31",
     "lucide-react": "^0.555.0",

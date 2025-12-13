@@ -53,11 +53,11 @@ export function ContactUsForm() {
     if (step !== 2) return;
 
     const formData = new FormData();
-    formData.append("first", data.firstName);
-    formData.append("lastname", data.lastName);
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
     formData.append("email", data.email);
     formData.append("phone", `${data.countryCode}${data.phone.replace(/\D/g, "")}`);
-    formData.append("message", data.description || "");
+    formData.append("description", data.description || "");
     formData.append("pageUrl", window.location.href || "");
     formData.append("provider", "byggekredit");
 
@@ -73,8 +73,7 @@ export function ContactUsForm() {
       setIsSubmitSuccessful(true);
     } else {
       setError("root.serverError", {
-        message:
-          result.error || "Der opstod en fejl under afsendelse. Prøv venligst igen.",
+        message: result.error || "Der opstod en fejl under afsendelse. Prøv venligst igen.",
       });
     }
   };
@@ -104,34 +103,42 @@ export function ContactUsForm() {
   return (
     <div className="w-full max-w-xl lg:min-w-[450px] bg-secondary-background py-8 md:py-12.5 px-4 md:px-10 lg:w-fit rounded-xl flex flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <Headline as="h3" variant="h3" className="text-secondary-foreground">
+        <Headline
+          as="h3"
+          variant="h3"
+          className="text-secondary-foreground"
+        >
           Bliv kontaktet
         </Headline>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete="on" noValidate>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="on"
+        noValidate
+      >
         {step === 1 && (
           <div className="mb-8 space-y-6">
             <InputField
-          label="Fornavn"
-          placeholder="Dit fornavn"
-          autoComplete="given-name"
-          isRequired
-          autoFocus
-          aria-invalid={!!errors.firstName}
-          {...register("firstName")}
-          error={errors.firstName}
-        />
+              label="Fornavn"
+              placeholder="Dit fornavn"
+              autoComplete="given-name"
+              isRequired
+              autoFocus
+              aria-invalid={!!errors.firstName}
+              {...register("firstName")}
+              error={errors.firstName}
+            />
 
-        <InputField
-          label="Efternavn"
-          placeholder="Dit efternavn"
-          autoComplete="family-name"
-          isRequired
-          aria-invalid={!!errors.lastName}
-          {...register("lastName")}
-          error={errors.lastName}
-        />
+            <InputField
+              label="Efternavn"
+              placeholder="Dit efternavn"
+              autoComplete="family-name"
+              isRequired
+              aria-invalid={!!errors.lastName}
+              {...register("lastName")}
+              error={errors.lastName}
+            />
 
             <InputField
               label="E-mail"
@@ -256,7 +263,10 @@ export function ContactUsForm() {
               onClick={handlePrevStep}
               className="w-fit"
             >
-              <ArrowLeft size={20} className="text-gray-900" />
+              <ArrowLeft
+                size={20}
+                className="text-gray-900"
+              />
             </Button>
           )}
 

@@ -1,4 +1,4 @@
 export const APP_CONFIG = {
-  MAKE_WEBHOOK_URL: process.env.MAKE_WEBHOOK_URL || "",
-  MAKE_API_KEY: process.env.MAKE_API_KEY || "",
+  SK_API_ENDPOINT: process.env.SK_API_ENDPOINT || "",
+  SK_API_KEY: process.env.SK_API_KEY || "",
 };

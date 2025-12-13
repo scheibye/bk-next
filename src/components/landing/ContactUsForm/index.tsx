@@ -49,6 +49,7 @@ export function ContactUsForm() {
   const selectedCode = watch("countryCode");
   const mask = countryList.find(({ code }) => code === selectedCode)?.mask;
 
+
   const onSubmit = async (data: ContactUsFormSchema) => {
     if (step !== 2) return;
 
@@ -67,14 +68,33 @@ export function ContactUsForm() {
       }
     }
 
+    console.log("=== FRONTEND SUBMITTING ===");
+    console.log("Form data:", {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: `${data.countryCode}${data.phone.replace(/\D/g, "")}`,
+      description: data.description,
+      files: data.files?.length || 0,
+    });
+
     const result = await submitContactForm(formData);
+
+    console.log("=== FRONTEND RECEIVED RESULT ===");
+    console.log("Result:", result);
 
     if (result.success) {
       setIsSubmitSuccessful(true);
     } else {
+      const errorMessage =
+        result.error || "Der opstod en fejl under afsendelse. Prøv venligst igen.";
+      console.error("Submission failed:", errorMessage);
+
       setError("root.serverError", {
-        message: result.error || "Der opstod en fejl under afsendelse. Prøv venligst igen.",
+        message: errorMessage, 
       });
+
+      alert(`DEBUG INFO:\n\n${errorMessage}\n\nCheck console for more details`);
     }
   };
 
